@@ -13,11 +13,11 @@ function Footer() {
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 items-start gap-8 lg:gap-12">
               {links.map(link => {
                 return (
-                <div className="">
+                <div key={link.type}>
                     <p className="text-lg font-semibold mb-4 border-b border-b-white">{link.type}</p>
                     <ul className="flex flex-col gap-2">
                         {link.urls.map(url => {
-                            return <button onClick={() => {
+                            return <button key={url} onClick={() => {
                                 fetchImages(url, setImages)
                                 setTitle(url)
                                 scrollToTop()
