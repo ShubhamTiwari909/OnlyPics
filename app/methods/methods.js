@@ -9,7 +9,7 @@ export const useStore = create((set) => ({
     page:1,
     setPage:(newPage) => set(() => ({ page: newPage })),
     totalPages:1,
-    setTotalPages:(newTotalPages) => set(() => ({ totalPages: newTotalPages }))
+    setTotalPages:(newTotalPages) => set(() => ({ totalPages: newTotalPages })),
 }))
 
 

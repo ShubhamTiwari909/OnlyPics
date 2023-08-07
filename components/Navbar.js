@@ -1,5 +1,5 @@
 "use client";
-
+import Link from 'next/link';
 import { fetchImages, useStore } from '@/app/methods/methods';
 import { useState } from 'react'
 import { useDisclosure } from '@mantine/hooks';
@@ -9,17 +9,18 @@ import { PiHamburger } from "react-icons/pi"
 function Navbar() {
 
     const [query, setQuery] = useState("");
-    const { setImages, setTitle,page,setTotalPages } = useStore();
+    const { setImages, setTitle, page, setTotalPages } = useStore();
 
     const [opened, handlers] = useDisclosure(false);
 
     const handleInputChange = (event) => {
         setQuery(event.target.value);
     };
+
     return (
-        <div className={`navbar flex-col md:flex-row ${opened ? "h-44" : "h-20"} md:h-20 bg-base-100 relative`}>
+        <div data-theme="dark" className={`navbar flex-col md:flex-row ${opened ? "h-44" : "h-20"} md:h-20 bg-base-100 fixed top-0`}>
             <div className="flex w-full justify-between">
-                <a className="btn btn-ghost normal-case text-xl">OnlyPics</a>
+                <div className="btn btn-ghost normal-case text-xl"><Link href="/">OnlyPics</Link></div>
                 <div>
                     <button className='btn btn-sm btn-circle btn-outline' onClick={() => handlers.toggle()}>
                         <FiSearch />
@@ -30,13 +31,11 @@ function Navbar() {
                         </label>
                         <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                             <li>
-                                <a className="justify-between">
-                                    Profile
-                                    <span className="badge">New</span>
-                                </a>
+                                <Link href="/">Home</Link>
                             </li>
-                            <li><a>Settings</a></li>
-                            <li><a>Logout</a></li>
+                            <li>
+                                <Link href="/theme">Themes</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -46,7 +45,7 @@ function Navbar() {
                     <input type="text" placeholder="Search" value={query}
                         onChange={handleInputChange} className="input input-bordered md:w-auto" />
                     <button className='btn btn-primary' onClick={() => {
-                        fetchImages(query,page, setImages,setTotalPages)
+                        fetchImages(query, page, setImages, setTotalPages)
                         setTitle(query)
                     }}>Search</button>
                 </div>
