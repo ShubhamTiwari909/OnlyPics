@@ -5,11 +5,14 @@ import { useState } from 'react'
 import { useDisclosure } from '@mantine/hooks';
 import { FiSearch } from "react-icons/fi"
 import { PiHamburger } from "react-icons/pi"
+import { useRouter } from 'next/navigation';
 
 function Navbar() {
 
+    const router = useRouter()
+
     const [query, setQuery] = useState("");
-    const { setImages, setTitle, page, setTotalPages } = useStore();
+    const { setImages, setTitle, page, setTotalPages, setPage } = useStore();
 
     const [opened, handlers] = useDisclosure(false);
 
@@ -45,8 +48,16 @@ function Navbar() {
                     <input type="text" placeholder="Search" value={query}
                         onChange={handleInputChange} className="input input-bordered md:w-auto" />
                     <button className='btn btn-primary' onClick={() => {
-                        fetchImages(query, page, setImages, setTotalPages)
-                        setTitle(query)
+                        if(query === "" || query === " "){
+                            alert("Please enter some text")
+                        }
+                        else{
+                            fetchImages(query, page, setImages, setTotalPages)
+                            setTitle(query)
+                            setPage(1)
+                            setQuery("");
+                            router.push('/')
+                        }
                     }}>Search</button>
                 </div>
             </div>
