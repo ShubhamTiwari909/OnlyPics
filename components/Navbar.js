@@ -9,7 +9,7 @@ import { PiHamburger } from "react-icons/pi"
 function Navbar() {
 
     const [query, setQuery] = useState("");
-    const { setImages, setTitle } = useStore();
+    const { setImages, setTitle,page,setTotalPages } = useStore();
 
     const [opened, handlers] = useDisclosure(false);
 
@@ -46,7 +46,7 @@ function Navbar() {
                     <input type="text" placeholder="Search" value={query}
                         onChange={handleInputChange} className="input input-bordered md:w-auto" />
                     <button className='btn btn-primary' onClick={() => {
-                        fetchImages(query, setImages)
+                        fetchImages(query,page, setImages,setTotalPages)
                         setTitle(query)
                     }}>Search</button>
                 </div>
